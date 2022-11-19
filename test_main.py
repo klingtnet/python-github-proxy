@@ -11,7 +11,7 @@ def test_main_no_token():
 
 
 def test_main_with_token(httpserver: pytest_httpserver.HTTPServer):
-    handler = httpserver.expect_request(
+    handler = httpserver.expect_oneshot_request(
         "/user",
         headers={
             "accept": client.GITHUB_ACCEPT,
