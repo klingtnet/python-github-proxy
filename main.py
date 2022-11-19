@@ -35,6 +35,23 @@ class GitHubClient:
         body = resp.json()
         self._log(f"you're logged in as: {body.get('login')}")
 
+    def starred(self, offset=1, page_size=50) -> List[str]:
+        """Yield starred repositories."""
+
+        while True:
+            resp = self.session.get(
+                self._url("/user/starred"),
+                headers={"Accept": GITHUB_ACCEPT},
+                params={"per_page": page_size, "page": offset},
+            )
+            resp.raise_for_status()
+            page = resp.json()
+            if len(page) < page_size:
+                return 0, None
+
+            yield offset, page
+            offset += 1
+
 
     def _url(self, path: str) -> str:
         return urljoin(self.base_url, path)
