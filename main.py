@@ -2,6 +2,7 @@ import logging
 import sys
 from typing import List
 import os
+from urllib.parse import urljoin
 
 import requests
 
@@ -29,12 +30,14 @@ class GitHubClient:
 
     def verify(self):
         """Verify that authenticated access works and the API is reachable."""
-        resp = self.session.get(
-            self.base_url + "/user", headers={"Accept": GITHUB_ACCEPT}
-        )
+        resp = self.session.get(self._url("/user"), headers={"Accept": GITHUB_ACCEPT})
         resp.raise_for_status()
         body = resp.json()
         self._log(f"you're logged in as: {body.get('login')}")
+
+
+    def _url(self, path: str) -> str:
+        return urljoin(self.base_url, path)
 
     def _log(self, msg):
         if self.logger:
