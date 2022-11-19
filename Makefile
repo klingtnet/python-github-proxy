@@ -1,4 +1,4 @@
-.PHONY: all run test
+.PHONY: all run test format
 
 all: test
 
@@ -7,3 +7,6 @@ test:
 
 run:
 	python -m main
+
+format:
+	.venv/bin/black .
