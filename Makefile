@@ -6,7 +6,7 @@ test:
 	pytest .
 
 run:
-	python -m main
+	python -m main --development
 
 format:
 	.venv/bin/black .
