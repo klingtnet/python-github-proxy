@@ -1,6 +1,5 @@
 from urllib.parse import urljoin
 import logging
-from typing import List
 
 import requests
 
@@ -36,7 +35,7 @@ class GitHub:
         body = resp.json()
         self._log(f"you're logged in as: {body.get('login')}")
 
-    def starred(self, offset=1, page_size=50) -> (int, List[dict]):
+    def starred(self, offset=1, page_size=50) -> (int, list[dict]):
         """Yield starred repositories."""
 
         while True:
