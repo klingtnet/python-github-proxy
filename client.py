@@ -36,7 +36,7 @@ class GitHub:
         body = resp.json()
         self._log(f"you're logged in as: {body.get('login')}")
 
-    def starred(self, offset=1, page_size=50) -> List[str]:
+    def starred(self, offset=1, page_size=50) -> (int, List[dict]):
         """Yield starred repositories."""
 
         while True:
